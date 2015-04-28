@@ -5,12 +5,10 @@
 
 #include <Game.h>
 
-Game& Game::game()
+Game::Game():window(NULL), gamePad(NULL)
 {
-   static Game instance;
-   return instance;
 }
 
-Game::Game():window(NULL), gamePad(NULL)
+void Game::InitSDL()
 {
 }

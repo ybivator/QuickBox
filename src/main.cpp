@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 {
    SDL_Window* window = NULL;
 
-   if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER))	
+   if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER | SDL_INIT_HAPTIC))
    {
       cout << "SDL_init fail: " << SDL_GetError() << endl;
       return 1;
@@ -63,6 +63,22 @@ int main(int argc, char **argv)
 	 }
       }
    }
+   SDL_Joystick* joys = SDL_GameControllerGetJoystick(joy);
+   SDL_Haptic* haptic = SDL_HapticOpenFromJoystick(joys);
+   if(haptic == NULL)
+   {
+      cout << "haptic = NULL: " << SDL_GetError() << endl;
+   }
+   if(SDL_HapticRumbleSupported(haptic) == SDL_TRUE)
+   {
+      cout << "Rumble is supported" << endl;
+   }
+   else
+   {
+      cout << "Rumble is not supported" << endl;
+   }
+
+   
 
    bool state = true;
    int normStep = 5;
@@ -125,8 +141,6 @@ int main(int argc, char **argv)
    }
 
 
-
-   SDL_GameControllerClose(joy);
    SDL_Quit();
    return 0;
 }

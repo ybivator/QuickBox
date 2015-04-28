@@ -5,16 +5,15 @@
 class Game
 {
 public:
-   static Game& game();
+   Game();
 
-//   void Init_SDL(){}
-//   void Init_GamePad(){}
+   void InitSDL();
+//   void InitGamePad(){}
 //
 //   const SDL_Window& getWindow(){}
 //   const SDL_GameController& getGamePad(){}
 
 private:
-   Game();
    Game(const Game&);
    void operator=(const Game&);
 
