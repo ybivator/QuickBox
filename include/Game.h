@@ -7,7 +7,7 @@ class Game
 public:
    Game();
 
-   void InitSDL();
+   bool InitSDL();
 //   void InitGamePad(){}
 //
 //   const SDL_Window& getWindow(){}
@@ -19,6 +19,9 @@ private:
 
    SDL_Window* window;
    SDL_GameController* gamePad;
+
+   const static int windowWidth = 550;
+   const static int windowHeight = 700;
 };
 
 

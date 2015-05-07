@@ -78,6 +78,9 @@ int main(int argc, char **argv)
       cout << "Rumble is not supported" << endl;
    }
 
+   SDL_HapticRumbleInit(haptic);
+
+
    
 
    bool state = true;
@@ -90,6 +93,11 @@ int main(int argc, char **argv)
       SDL_Event event;
       SDL_PollEvent(&event);
       const Uint8* keyCode = SDL_GetKeyboardState(NULL);
+
+      if(event.type == SDL_QUIT)
+      {
+         break;
+      }
 
       if(keyCode[SDL_SCANCODE_LSHIFT] && keyCode[SDL_SCANCODE_RIGHT])
       {
@@ -128,10 +136,6 @@ int main(int argc, char **argv)
 	 draw(window, width, height, 2, normStep);
       }
       
-      if(event.type == SDL_QUIT)
-      {
-         break;
-      }
       if(SDL_GameControllerGetButton(joy, SDL_CONTROLLER_BUTTON_BACK))
       {
          break;
