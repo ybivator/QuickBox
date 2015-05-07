@@ -50,3 +50,35 @@ bool Game::InitSDL()
    }
    return true;
 }
+
+bool Game::InitGamePad()
+{
+   if(SDL_NumJoysticks() > 0)
+   {
+      for(int i = 0; i < SDL_NumJoysticks(); ++i)
+      {
+	 if(SDL_IsGameController(i))
+	 {
+	    gamePad = SDL_GameControllerOpen(i);
+	    cout << "Joystick opened!!!" << endl;
+	    cout << "Joystick name: " << SDL_GameControllerName(gamePad) << endl;
+	 }
+	 else
+	 {
+	    cout << "Joystick error: " << SDL_GetError() << endl;
+	    return false;
+	 }
+      }
+   }
+   return true;
+}
+
+SDL_Window* Game::getWindow()
+{
+   return window;
+}
+
+SDL_GameController* Game::getGamePad()
+{
+   return gamePad;
+}

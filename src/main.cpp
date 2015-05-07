@@ -8,6 +8,7 @@
 #include <GL/gl.h>
 #include <SDL2/SDL_haptic.h>
 #include <drawFunctions.h>
+#include <Game.h>
 
 using std::cout;
 using std::endl;
@@ -15,55 +16,19 @@ using std::endl;
 
 int main(int argc, char **argv)
 {
-   SDL_Window* window = NULL;
+   Game game;
 
-   if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER | SDL_INIT_HAPTIC))
+   if(!game.InitSDL())
    {
-      cout << "SDL_init fail: " << SDL_GetError() << endl;
       return 1;
    }
-   else
-   {
-      cout << "Init Success" << endl;
-      window = SDL_CreateWindow(
-         "Basic Matrix Movement",
-         SDL_WINDOWPOS_UNDEFINED,
-         SDL_WINDOWPOS_UNDEFINED,
-         width,
-         height,
-         SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
-      
-      if(!window)
-      {
-         cout << "Window init fail: " << SDL_GetError() << endl;
-         return 1;
-      }
-      SDL_GLContext glContext = SDL_GL_CreateContext(window);
-      if(!glContext)
-      {
-         cout << "Could not create OpenGL context: " << endl;
-      }
-   }
-   
-   SDL_GameController* joy = NULL;
 
-   if(SDL_NumJoysticks() > 0)
+   if(!game.InitGamePad())
    {
-      for(int i = 0; i < SDL_NumJoysticks(); ++i)
-      {
-	 if(SDL_IsGameController(i))
-	 {
-	    joy = SDL_GameControllerOpen(i);
-	    cout << "Joystick opened!!!" << endl;
-	    cout << "Joystick name: " << SDL_GameControllerName(joy) << endl;
-	 }
-	 else
-	 {
-	    cout << "Joystick error: " << SDL_GetError() << endl;
-	 }
-      }
+      return 1;
    }
-   SDL_Joystick* joys = SDL_GameControllerGetJoystick(joy);
+
+   SDL_Joystick* joys = SDL_GameControllerGetJoystick(game.getGamePad());
    SDL_Haptic* haptic = SDL_HapticOpenFromJoystick(joys);
    if(haptic == NULL)
    {
@@ -101,47 +66,47 @@ int main(int argc, char **argv)
 
       if(keyCode[SDL_SCANCODE_LSHIFT] && keyCode[SDL_SCANCODE_RIGHT])
       {
-         draw(window, width, height, 1, fastStep);
+         draw(game.getWindow(), width, height, 1, fastStep);
       }
       else if(keyCode[SDL_SCANCODE_LSHIFT] && keyCode[SDL_SCANCODE_LEFT])
       {
-         draw(window, width, height, 2, fastStep);
+         draw(game.getWindow(), width, height, 2, fastStep);
       }
-      if(keyCode[SDL_SCANCODE_RIGHT] || SDL_GameControllerGetButton(joy, SDL_CONTROLLER_BUTTON_DPAD_RIGHT))
+      if(keyCode[SDL_SCANCODE_RIGHT] || SDL_GameControllerGetButton(game.getGamePad(), SDL_CONTROLLER_BUTTON_DPAD_RIGHT))
       {
-         draw(window, width, height, 1, normStep);
+         draw(game.getWindow(), width, height, 1, normStep);
       }
-      else if(keyCode[SDL_SCANCODE_LEFT] || SDL_GameControllerGetButton(joy, SDL_CONTROLLER_BUTTON_DPAD_LEFT))
+      else if(keyCode[SDL_SCANCODE_LEFT] || SDL_GameControllerGetButton(game.getGamePad(), SDL_CONTROLLER_BUTTON_DPAD_LEFT))
 
       {
-         draw(window, width, height, 2, normStep);
+         draw(game.getWindow(), width, height, 2, normStep);
       }
 
-      if(SDL_GameControllerGetAxis(joy, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0 &&
-         SDL_GameControllerGetAxis(joy, SDL_CONTROLLER_AXIS_LEFTX) > 10000)
+      if(SDL_GameControllerGetAxis(game.getGamePad(), SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0 &&
+         SDL_GameControllerGetAxis(game.getGamePad(), SDL_CONTROLLER_AXIS_LEFTX) > 10000)
       {
-	 draw(window, width, height, 1, fastStep);
+	 draw(game.getWindow(), width, height, 1, fastStep);
       }
-      else if(SDL_GameControllerGetAxis(joy, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0 &&
-              SDL_GameControllerGetAxis(joy, SDL_CONTROLLER_AXIS_LEFTX) < -10000)
+      else if(SDL_GameControllerGetAxis(game.getGamePad(), SDL_CONTROLLER_AXIS_TRIGGERRIGHT) > 0 &&
+              SDL_GameControllerGetAxis(game.getGamePad(), SDL_CONTROLLER_AXIS_LEFTX) < -10000)
       {
-         draw(window, width, height, 2, fastStep);
+         draw(game.getWindow(), width, height, 2, fastStep);
       }
-      else if(SDL_GameControllerGetAxis(joy, SDL_CONTROLLER_AXIS_LEFTX) > 10000)
+      else if(SDL_GameControllerGetAxis(game.getGamePad(), SDL_CONTROLLER_AXIS_LEFTX) > 10000)
       {
-	 draw(window, width, height, 1, normStep);
+	 draw(game.getWindow(), width, height, 1, normStep);
       }
-      else if(SDL_GameControllerGetAxis(joy, SDL_CONTROLLER_AXIS_LEFTX) < -10000)
+      else if(SDL_GameControllerGetAxis(game.getGamePad(), SDL_CONTROLLER_AXIS_LEFTX) < -10000)
       {
-	 draw(window, width, height, 2, normStep);
+	 draw(game.getWindow(), width, height, 2, normStep);
       }
       
-      if(SDL_GameControllerGetButton(joy, SDL_CONTROLLER_BUTTON_BACK))
+      if(SDL_GameControllerGetButton(game.getGamePad(), SDL_CONTROLLER_BUTTON_BACK))
       {
          break;
       }
 
-      draw(window, width, height, 0, normStep);
+      draw(game.getWindow(), width, height, 0, normStep);
    }
 
 

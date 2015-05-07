@@ -8,10 +8,10 @@ public:
    Game();
 
    bool InitSDL();
-//   void InitGamePad(){}
-//
-//   const SDL_Window& getWindow(){}
-//   const SDL_GameController& getGamePad(){}
+   bool InitGamePad();
+
+   SDL_Window* getWindow();
+   SDL_GameController* getGamePad();
 
 private:
    Game(const Game&);
