@@ -1,27 +1,35 @@
 #ifndef _GAME_H
 #define _GAME_H
 #include <SDL2/SDL.h>
+#include <Box.h>
 
 class Game
 {
 public:
-   Game();
+   Game(int w, int h);
 
    bool InitSDL();
    bool InitGamePad();
 
+   void Quit();
+
+   void draw();
+
    SDL_Window* getWindow();
    SDL_GameController* getGamePad();
+   Box& getBox();
 
 private:
    Game(const Game&);
    void operator=(const Game&);
 
+   int windowWidth;
+   int windowHeight;
+
    SDL_Window* window;
    SDL_GameController* gamePad;
 
-   const static int windowWidth = 550;
-   const static int windowHeight = 700;
+   Box box;
 };
 
 

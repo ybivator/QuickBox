@@ -4,13 +4,13 @@
 #endif
 
 #include <Box.h>
-#include <drawFunctions.h>
 #include <GL/gl.h>
 #include <SDL2/SDL.h>
 #include <iostream>
 
 using std::cout;
 using std::endl;
+
 
 Box::Box(int x, int y, int w, int h): xPos(x), yPos(y),
                                       boxWidth(w), boxHeight(h)
@@ -30,7 +30,7 @@ void Box::draw()
    glEnd();
 }
 
-void Box::increaseX(int step)
+void Box::increase(int step)
 {
    int leftBorder = xPos + step;
    int rightBorder = xPos + boxWidth + step;
@@ -54,9 +54,9 @@ void Box::increaseX(int step)
    glPopMatrix();
 }
 
-void Box::decreaseX(int step)
+void Box::decrease(int step)
 {
-   increaseX(-step);
+   increase(-step);
 }
 
 const int Box::getBoxHeight() const

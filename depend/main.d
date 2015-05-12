@@ -1,1 +1,2 @@
-obj/main.o: src/main.cpp include/drawFunctions.h include/Game.h
+obj/main.o: src/main.cpp include/Game.h include/Box.h \
+ include/EventHandler.h

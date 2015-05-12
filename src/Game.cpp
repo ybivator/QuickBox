@@ -5,11 +5,14 @@
 
 #include <Game.h>
 #include <iostream>
+#include <GL/gl.h>
 
 using std::cout;
 using std::endl;
 
-Game::Game():window(NULL), gamePad(NULL)
+Game::Game(int w, int h):windowWidth(w), windowHeight(h), 
+                         window(NULL), gamePad(NULL),
+			 box(0, 0, 50, 50)
 {
 }
 
@@ -73,6 +76,27 @@ bool Game::InitGamePad()
    return true;
 }
 
+void Game::draw()
+{
+   glClearColor(1.0, 1.0, 1.0, 1.0);
+   glClear(GL_COLOR_BUFFER_BIT);
+
+   glViewport(0, 0, windowWidth, windowHeight);
+   glMatrixMode(GL_MODELVIEW);
+   glLoadIdentity();
+
+   glOrtho(0, windowWidth, 0, windowHeight, 1, -1);
+
+   box.draw();
+   SDL_GL_SwapWindow(window);
+}
+
+void Game::Quit()
+{
+   SDL_GameControllerClose(gamePad);
+   SDL_Quit();
+}
+
 SDL_Window* Game::getWindow()
 {
    return window;
@@ -81,4 +105,9 @@ SDL_Window* Game::getWindow()
 SDL_GameController* Game::getGamePad()
 {
    return gamePad;
+}
+
+Box& Game::getBox()
+{
+   return box;
 }
