@@ -6,6 +6,8 @@
 #include <Game.h>
 #include <iostream>
 #include <GL/gl.h>
+#include <Line.h>
+#include <list>
 
 using std::cout;
 using std::endl;
@@ -86,6 +88,34 @@ void Game::draw()
    glLoadIdentity();
 
    glOrtho(0, windowWidth, 0, windowHeight, 1, -1);
+
+
+   static std::list<Line> lineList;
+   static int count = 0;
+   if(count == 0)
+   {
+      lineList.push_back(Line(20, 90));
+      count++;
+   }
+   else
+   {
+      for(std::list<Line>::iterator it = lineList.begin(); it != lineList.end(); ++it)
+      {
+         (*it).decrease(3);
+	 (*it).draw();
+      }
+      if(count > 20)
+      {
+         count = 0;
+      }
+      else
+      {
+         count++;
+      }
+   }
+
+//   line.decrease(3);
+//   line.draw();
 
    box.draw();
    SDL_GL_SwapWindow(window);

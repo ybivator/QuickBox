@@ -2,6 +2,7 @@
 #define _BOX_H_
 
 extern const int width;
+extern const int height;
 
 class Box
 {
