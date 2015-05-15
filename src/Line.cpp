@@ -12,6 +12,8 @@ Line::Line(int hX, int hW): xPos(0), yPos(height - 10), holeX(hX), holeWidth(hW)
 
 void Line::draw()
 {
+   glColor3f(0.0f, 0.0f, 0.0f);
+
    glBegin(GL_LINES);
       glVertex2i(xPos, yPos);
       glVertex2i(holeX, yPos);
@@ -25,5 +27,11 @@ void Line::decrease(int num)
    if(num > 0)
    {
       yPos -= num;
+      glPushMatrix();
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
+
+      glTranslatef(0.0f, yPos, 0.0f);
+      glPopMatrix();
    }
 }

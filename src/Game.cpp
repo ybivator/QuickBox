@@ -95,13 +95,18 @@ void Game::draw()
    if(count == 0)
    {
       lineList.push_back(Line(20, 90));
+      for(std::list<Line>::iterator it = lineList.begin(); it != lineList.end(); ++it)
+      {
+         (*it).decrease(2);
+	 (*it).draw();
+      }
       count++;
    }
    else
    {
       for(std::list<Line>::iterator it = lineList.begin(); it != lineList.end(); ++it)
       {
-         (*it).decrease(3);
+         (*it).decrease(2);
 	 (*it).draw();
       }
       if(count > 20)
@@ -113,9 +118,6 @@ void Game::draw()
          count++;
       }
    }
-
-//   line.decrease(3);
-//   line.draw();
 
    box.draw();
    SDL_GL_SwapWindow(window);
