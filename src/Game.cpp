@@ -92,30 +92,49 @@ void Game::draw()
 
    static std::list<Line> lineList;
    static int count = 0;
-   if(count == 0)
+   static bool flag1 = false;
+   static bool flag2 = false;
+//   static int counter = 0;
+
+   int distanceBetweenLines = 40;
+   int lineSpeed = 2;
+   int lineHoleX = 20;
+   int lineHoleWidth = 90;
+
+   if(!flag1)
    {
-      lineList.push_back(Line(20, 90));
+      lineList.push_back(Line(lineHoleX, lineHoleWidth));
+      flag1 = true;
+   }
+   if(!flag2)
+   {
       for(std::list<Line>::iterator it = lineList.begin(); it != lineList.end(); ++it)
       {
-         (*it).decrease(2);
-	 (*it).draw();
+	 if((*it).getY() < 0)
+	 {
+	    flag2 = true;
+	    (*it).setY(windowHeight);
+	 }
+         (*it).decrease(lineSpeed);
+         (*it).draw();
+	 count = (*it).getY();
       }
-      count++;
+      if(count < (windowHeight - (distanceBetweenLines * lineSpeed)))
+      {
+         lineList.push_back(Line(lineHoleX, lineHoleWidth));
+      }
    }
    else
    {
       for(std::list<Line>::iterator it = lineList.begin(); it != lineList.end(); ++it)
       {
-         (*it).decrease(2);
-	 (*it).draw();
-      }
-      if(count > 20)
-      {
-         count = 0;
-      }
-      else
-      {
-         count++;
+	 if((*it).getY() < 0)
+	 {
+	    flag2 = true;
+	    (*it).setY(windowHeight);
+	 }
+         (*it).decrease(lineSpeed);
+         (*it).draw();
       }
    }
 
@@ -142,4 +161,9 @@ SDL_GameController* Game::getGamePad()
 Box& Game::getBox()
 {
    return box;
+}
+
+int Game::round(float num)
+{
+   return floor(num + 0.5);
 }

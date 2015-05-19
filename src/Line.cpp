@@ -35,3 +35,13 @@ void Line::decrease(int num)
       glPopMatrix();
    }
 }
+
+const int Line::getY()
+{
+   return yPos;
+}
+
+void Line::setY(int num)
+{
+   yPos = num;
+}

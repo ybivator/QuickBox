@@ -12,6 +12,10 @@ public:
    void draw();
    void decrease(int num);
 
+   const int getY();
+   void setY(int num);
+
+
 
 private:
    int xPos;
