@@ -23,7 +23,7 @@ private:
    Game(const Game&);
    void operator=(const Game&);
 
-   int round(float num);
+   float round(float num);
 
    int windowWidth;
    int windowHeight;

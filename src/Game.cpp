@@ -91,52 +91,48 @@ void Game::draw()
 
 
    static std::list<Line> lineList;
+
+   int distanceBetweenLines = 50;
+   int lineSpeed = 5;
+//   int lineHoleX = 20;
+//   int lineHoleWidth = 90;
+
    static int count = 0;
-   static bool flag1 = false;
-   static bool flag2 = false;
-//   static int counter = 0;
+   static int count1 = 0;
 
-   int distanceBetweenLines = 40;
-   int lineSpeed = 2;
-   int lineHoleX = 20;
-   int lineHoleWidth = 90;
+   static Line line1(20, 90);
+   static Line line2(80, 90);
+   static Line line3(50, 90);
 
-   if(!flag1)
+
+
+   if(count < distanceBetweenLines)
    {
-      lineList.push_back(Line(lineHoleX, lineHoleWidth));
-      flag1 = true;
-   }
-   if(!flag2)
-   {
-      for(std::list<Line>::iterator it = lineList.begin(); it != lineList.end(); ++it)
-      {
-	 if((*it).getY() < 0)
-	 {
-	    flag2 = true;
-	    (*it).setY(windowHeight);
-	 }
-         (*it).decrease(lineSpeed);
-         (*it).draw();
-	 count = (*it).getY();
-      }
-      if(count < (windowHeight - (distanceBetweenLines * lineSpeed)))
-      {
-         lineList.push_back(Line(lineHoleX, lineHoleWidth));
-      }
+      line1.decrease(lineSpeed);
+      line1.draw();
+      count++;
    }
    else
    {
-      for(std::list<Line>::iterator it = lineList.begin(); it != lineList.end(); ++it)
+      if(count1 < distanceBetweenLines)
       {
-	 if((*it).getY() < 0)
-	 {
-	    flag2 = true;
-	    (*it).setY(windowHeight);
-	 }
-         (*it).decrease(lineSpeed);
-         (*it).draw();
+         line1.decrease(lineSpeed);
+         line1.draw();
+         line2.decrease(lineSpeed);
+         line2.draw();
+	 count1++;
+      }
+      else
+      {
+         line1.decrease(lineSpeed);
+         line1.draw();
+         line2.decrease(lineSpeed);
+         line2.draw();
+	 line3.decrease(lineSpeed);
+	 line3.draw();
       }
    }
+
 
    box.draw();
    SDL_GL_SwapWindow(window);
@@ -163,7 +159,7 @@ Box& Game::getBox()
    return box;
 }
 
-int Game::round(float num)
+float Game::round(float num)
 {
    return floor(num + 0.5);
 }

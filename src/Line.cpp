@@ -24,15 +24,18 @@ void Line::draw()
 
 void Line::decrease(int num)
 {
-   if(num > 0)
+   if(yPos >= 0)
    {
-      yPos -= num;
-      glPushMatrix();
-      glMatrixMode(GL_MODELVIEW);
-      glLoadIdentity();
-
-      glTranslatef(0.0f, yPos, 0.0f);
-      glPopMatrix();
+      if(num > 0)
+      {
+         yPos -= num;
+         glPushMatrix();
+         glMatrixMode(GL_MODELVIEW);
+         glLoadIdentity();
+   
+         glTranslatef(0.0f, yPos, 0.0f);
+         glPopMatrix();
+      }
    }
 }
 
