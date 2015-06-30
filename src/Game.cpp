@@ -78,6 +78,7 @@ bool Game::InitGamePad()
 
 void Game::draw()
 {
+   glPixelStorei(GL_UNPACK_ALIGNMENT, 2);
    glClearColor(1.0, 1.0, 1.0, 1.0);
    glClear(GL_COLOR_BUFFER_BIT);
 
@@ -86,6 +87,41 @@ void Game::draw()
    glLoadIdentity();
 
    glOrtho(0, windowWidth, 0, windowHeight, 1, -1);
+
+
+   GLubyte number[] = {
+                       0x7f, 0xff,
+                       0x7f, 0xff,
+                       0x7f, 0xff,
+                       0x7f, 0xff,
+		       0x00, 0x0f,
+		       0x00, 0x0f,
+		       0x00, 0x0f,
+		       0x00, 0x0f,
+		       0x00, 0x0f,
+		       0x00, 0x0f,
+		       0x00, 0x0f,
+		       0x00, 0x0f,
+		       0x7f, 0xff,
+		       0x7f, 0xff,
+		       0x7f, 0xff,
+		       0x7f, 0xff,
+		       0x00, 0x0f,
+		       0x00, 0x0f,
+		       0x00, 0x0f,
+		       0x00, 0x0f,
+		       0x00, 0x0f,
+		       0x00, 0x0f,
+		       0x7f, 0xff,
+		       0x7f, 0xff,
+		       0x7f, 0xff,
+		       0x7f, 0xff
+		      };
+   
+   glColor3f(0.0f, 0.0f, 0.0f);
+   glRasterPos2i(0, windowHeight - 30);
+   glBitmap(16, 26, 0, 0, 0, 0, number);
+
 
    box.draw();
    SDL_GL_SwapWindow(window);
