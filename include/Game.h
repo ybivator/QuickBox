@@ -2,6 +2,7 @@
 #define _GAME_H
 #include <SDL2/SDL.h>
 #include <Box.h>
+#include <EventHandler.h>
 
 class Game
 {
@@ -13,6 +14,7 @@ public:
 
    void Quit();
 
+   bool update();
    void draw();
 
    SDL_Window* getWindow();
@@ -29,6 +31,7 @@ private:
    SDL_Window* window;
    SDL_GameController* gamePad;
 
+   EventHandler eventHandler;
    Box box;
 };
 

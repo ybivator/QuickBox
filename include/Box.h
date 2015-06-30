@@ -21,6 +21,8 @@ private:
    int yPos;
    int boxWidth;
    int boxHeight;
+
+   int lastUpdateTime;
 };
 #endif
 

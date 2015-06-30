@@ -32,12 +32,12 @@ bool EventHandler::update(Box& b)
       }
       else if(keyCode[SDL_SCANCODE_RIGHT])
       {
-         b.increase(normStep);
+         b.increase(step);
       }
       else if(keyCode[SDL_SCANCODE_LEFT])
       
       {
-         b.decrease(normStep);
+         b.decrease(step);
       }
    }
    else
@@ -54,11 +54,11 @@ bool EventHandler::update(Box& b)
       }
       else if(keyCode[SDL_SCANCODE_RIGHT] || SDL_GameControllerGetButton(gamePad, SDL_CONTROLLER_BUTTON_DPAD_RIGHT) || SDL_GameControllerGetAxis(gamePad, SDL_CONTROLLER_AXIS_LEFTX) > 10000)
       {
-         b.increase(normStep);
+         b.increase(step);
       }
       else if(keyCode[SDL_SCANCODE_LEFT] || SDL_GameControllerGetButton(gamePad, SDL_CONTROLLER_BUTTON_DPAD_LEFT) || SDL_GameControllerGetAxis(gamePad, SDL_CONTROLLER_AXIS_LEFTX) < -10000)
       {
-         b.decrease(normStep);
+         b.decrease(step);
       }
       else if(SDL_GameControllerGetButton(gamePad, SDL_CONTROLLER_BUTTON_BACK))
       {

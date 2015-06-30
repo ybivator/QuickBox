@@ -6,13 +6,14 @@
 #include <Game.h>
 #include <iostream>
 #include <GL/gl.h>
+#include <EventHandler.h>
 
 using std::cout;
 using std::endl;
 
 Game::Game(int w, int h):windowWidth(w), windowHeight(h), 
                          window(NULL), gamePad(NULL),
-			 box(0, 0, 50, 50)
+			 eventHandler(gamePad), box(0, 0, 50, 50)
 {
 }
 
@@ -32,12 +33,12 @@ bool Game::InitSDL()
    {
       cout << "Init Success" << endl;
       window = SDL_CreateWindow(
-         "Basic Matrix Movement",
-         SDL_WINDOWPOS_UNDEFINED,
-         SDL_WINDOWPOS_UNDEFINED,
-         windowWidth,
-         windowHeight,
-         SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+               "Basic Matrix Movement",
+               SDL_WINDOWPOS_UNDEFINED,
+               SDL_WINDOWPOS_UNDEFINED,
+               windowWidth,
+               windowHeight,
+               SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
       
       if(!window)
       {
@@ -63,6 +64,7 @@ bool Game::InitGamePad()
 	 if(SDL_IsGameController(i))
 	 {
 	    gamePad = SDL_GameControllerOpen(i);
+	    eventHandler = gamePad;
 	    cout << "Joystick opened!!!" << endl;
 	    cout << "Joystick name: " << SDL_GameControllerName(gamePad) << endl;
 	 }
@@ -74,6 +76,18 @@ bool Game::InitGamePad()
       }
    }
    return true;
+}
+
+bool Game::update()
+{
+   if(eventHandler.update(box))
+   {
+      return true;
+   }
+   else
+   {
+      return false;
+   }
 }
 
 void Game::draw()

@@ -13,7 +13,7 @@ public:
 private:
    SDL_GameController* gamePad;
 
-   static const int normStep = 5;
+   static const int step = 5;
    static const int fastStep = 15;
 };
 #endif

@@ -13,7 +13,7 @@ using std::endl;
 
 
 Box::Box(int x, int y, int w, int h): xPos(x), yPos(y),
-                                      boxWidth(w), boxHeight(h)
+                                      boxWidth(w), boxHeight(h), lastUpdateTime(0)
 {
 }
 
@@ -35,6 +35,8 @@ void Box::increase(int step)
    int leftBorder = xPos + step;
    int rightBorder = xPos + boxWidth + step;
 
+   int deltaTime;
+
    if(leftBorder <= 0 && leftBorder >= step)
    {
       xPos = 0;
@@ -45,8 +47,17 @@ void Box::increase(int step)
    }
    else if(xPos >= 0 && xPos <= width)
    {
-      xPos += step;
+      int getCurrentTime = SDL_GetTicks();
+      deltaTime = getCurrentTime - lastUpdateTime;
+
+      cout << "lastUPdateTime = " << lastUpdateTime << endl;
+      cout << "getCurrentTime = " << getCurrentTime << endl;
+      cout << "deltaTime = " << deltaTime << endl;
+
+      lastUpdateTime = getCurrentTime;
+      xPos += step * deltaTime;
    }
+
    glPushMatrix();
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();

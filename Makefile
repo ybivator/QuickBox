@@ -19,7 +19,7 @@ IFLAG := $(addprefix -I, $(include_dir))
 #  -Wshadow - shows warnings when local variable blocks global variable or another local variable
 
 CFLAGS := -Wall -Werror -Wshadow -Wold-style-cast -O0 -pedantic-errors -ggdb -pg -std=c++11
-LIBS := -lGL -lGLU -lSDL2 -lSDL2_image 
+LIBS := -lGL -lGLU -lSDL2 -lSDL2_image
 
 all: $(program)
 

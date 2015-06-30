@@ -9,7 +9,6 @@
 #include <SDL2/SDL_haptic.h>
 #include <Game.h>
 #include <Box.h>
-#include <EventHandler.h>
 
 using std::cout;
 using std::endl;
@@ -31,19 +30,16 @@ int main(int argc, char **argv)
       return 1;
    }
 
-   EventHandler eventHandler(game.getGamePad());
-
    while(true)
    {
-      if(eventHandler.update(game.getBox()))
+      if(game.update())
       {
-         game.draw();
+	 game.draw();
       }
       else
       {
          break;
       }
-      
    }
 
    game.Quit();
