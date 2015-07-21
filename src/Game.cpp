@@ -6,6 +6,7 @@
 #include <Game.h>
 #include <iostream>
 #include <GL/gl.h>
+#include <rasterFpsCounter.h>
 
 using std::cout;
 using std::endl;
@@ -88,39 +89,9 @@ void Game::draw()
 
    glOrtho(0, windowWidth, 0, windowHeight, 1, -1);
 
-
-   GLubyte number[] = {
-                       0x7f, 0xff,
-                       0x7f, 0xff,
-                       0x7f, 0xff,
-                       0x7f, 0xff,
-		       0x00, 0x0f,
-		       0x00, 0x0f,
-		       0x00, 0x0f,
-		       0x00, 0x0f,
-		       0x00, 0x0f,
-		       0x00, 0x0f,
-		       0x00, 0x0f,
-		       0x00, 0x0f,
-		       0x7f, 0xff,
-		       0x7f, 0xff,
-		       0x7f, 0xff,
-		       0x7f, 0xff,
-		       0x00, 0x0f,
-		       0x00, 0x0f,
-		       0x00, 0x0f,
-		       0x00, 0x0f,
-		       0x00, 0x0f,
-		       0x00, 0x0f,
-		       0x7f, 0xff,
-		       0x7f, 0xff,
-		       0x7f, 0xff,
-		       0x7f, 0xff
-		      };
-   
    glColor3f(0.0f, 0.0f, 0.0f);
    glRasterPos2i(0, windowHeight - 30);
-   glBitmap(16, 26, 0, 0, 0, 0, number);
+   glBitmap(16, 26, 0, 0, 0, 0, zero);
 
 
    box.draw();

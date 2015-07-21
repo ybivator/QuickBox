@@ -33,8 +33,13 @@ int main(int argc, char **argv)
 
    EventHandler eventHandler(game.getGamePad());
 
+   Uint32 lastTime = SDL_GetTicks();
+   Uint32 frames = 0;
+
    while(true)
    {
+      Uint32 currentTime = SDL_GetTicks();
+      Uint32 delta = currentTime - lastTime;
       if(eventHandler.update(game.getBox()))
       {
          game.draw();
@@ -43,6 +48,13 @@ int main(int argc, char **argv)
       {
          break;
       }
+      if(delta > 200)
+      {
+         cout << frames * 1000.0 / delta << endl;
+	 lastTime = currentTime;
+	 frames = 0;
+      }
+      frames++;
       
    }
 
