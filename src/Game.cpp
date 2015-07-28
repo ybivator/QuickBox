@@ -6,14 +6,14 @@
 #include <Game.h>
 #include <iostream>
 #include <GL/gl.h>
-#include <rasterFpsCounter.h>
 
 using std::cout;
 using std::endl;
 
 Game::Game(int w, int h):windowWidth(w), windowHeight(h), 
                          window(NULL), gamePad(NULL),
-			 box(0, 0, 50, 50)
+			 eventHandler(gamePad), box(0, 0, 50, 50),
+			 fpsCounter()
 {
 }
 
@@ -77,24 +77,32 @@ bool Game::InitGamePad()
    return true;
 }
 
-void Game::draw()
+bool Game::update()
 {
-   glPixelStorei(GL_UNPACK_ALIGNMENT, 2);
-   glClearColor(1.0, 1.0, 1.0, 1.0);
-   glClear(GL_COLOR_BUFFER_BIT);
-
    glViewport(0, 0, windowWidth, windowHeight);
    glMatrixMode(GL_MODELVIEW);
    glLoadIdentity();
 
    glOrtho(0, windowWidth, 0, windowHeight, 1, -1);
 
-   glColor3f(0.0f, 0.0f, 0.0f);
-   glRasterPos2i(0, windowHeight - 30);
-   glBitmap(16, 26, 0, 0, 0, 0, zero);
-
+   if(!eventHandler.update(box))
+   {
+      return false;
+   }
+#ifdef DEBUG
+   fpsCounter.countFps();
+#endif   
+   return true;
+}
+void Game::draw()
+{
+   glClearColor(1.0, 1.0, 1.0, 1.0);
+   glClear(GL_COLOR_BUFFER_BIT);
 
    box.draw();
+#ifdef DEBUG
+   fpsCounter.drawFps(windowHeight);
+#endif
    SDL_GL_SwapWindow(window);
 }
 
