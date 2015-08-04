@@ -5,38 +5,39 @@
 #include <EventHandler.h>
 #include <FpsCounter.h>
 
+enum State
+{
+   RUNNING,
+   EXIT
+};
+
+extern const unsigned int width;
+extern const unsigned int height;
+extern State state;
+
 class Game
 {
 public:
-   Game(int w, int h);
+   Game(SDL_Window *win, SDL_GameController *gpad);
 
    bool InitSDL();
    bool InitGamePad();
 
-   void Quit();
-
-   bool update();
+   void update();
    void draw();
 
-   SDL_Window* getWindow();
-   SDL_GameController* getGamePad();
    Box& getBox();
 
 private:
    Game(const Game&);
    void operator=(const Game&);
 
-   int windowWidth;
-   int windowHeight;
-
-   SDL_Window* window;
-   SDL_GameController* gamePad;
-   EventHandler eventHandler;
-
+   SDL_Window *window;
+   SDL_GameController *gamepad;
    Box box;
    FpsCounter fpsCounter;
+   EventHandler eventHandler;
 };
-
 
 #endif
 

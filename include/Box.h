@@ -1,7 +1,7 @@
 #ifndef _BOX_H_
 #define _BOX_H_
 
-extern const int width;
+extern const unsigned int width;
 
 class Box
 {

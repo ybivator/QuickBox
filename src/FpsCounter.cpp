@@ -34,6 +34,7 @@ void FpsCounter::drawFps(int height)
 {
    glColor3f(0.0f, 0.0f, 0.0f);
    glPixelStorei(GL_UNPACK_ALIGNMENT, 2);
+
    glRasterPos2i(0, height - 30);
    glBitmap(16, 26, 0, 0, 19.0, 0, (*numbers[majorFps]));
    glBitmap(16, 26, 0, 0, 0, 0, (*numbers[minorFps]));

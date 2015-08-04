@@ -9,36 +9,29 @@
 #include <SDL2/SDL_haptic.h>
 #include <Game.h>
 #include <Box.h>
+#include <Init.h>
 
 using std::cout;
 using std::endl;
 
-const int width = 550;
-const int height = 700;
+
+const unsigned int width = 550;
+const unsigned int height = 700;
+
+State state = RUNNING;
 
 int main(int argc, char **argv)
 {
-   Game game(width, height);
 
-   if(!game.InitSDL())
-   {
-      return 1;
-   }
+   Init init;
+   Game game(init.getWindow(), init.getGamepad());
 
-   if(!game.InitGamePad())
+   while(state == RUNNING)
    {
-      return 1;
-   }
-
-   while(true)
-   {
-      if(!game.update())
-      {
-         break;
-      }
+      game.update();
       game.draw();
    }
 
-   game.Quit();
+   init.quit();
    return 0;
 }

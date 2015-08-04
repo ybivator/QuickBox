@@ -39,11 +39,11 @@ void Box::increase(int step)
    {
       xPos = 0;
    }
-   else if(rightBorder > width && (rightBorder - width) <= step)
+   else if(rightBorder > static_cast<int>(width) && (rightBorder - static_cast<int>(width)) <= step)
    {
       xPos = width - boxWidth;
    }
-   else if(xPos >= 0 && xPos <= width)
+   else if(xPos >= 0 && xPos <= static_cast<int>(width))
    {
       xPos += step;
    }
