@@ -6,7 +6,7 @@
 #include <Line.h>
 #include <GL/gl.h>
 
-Line::Line(int hX, int hW): xPos(0), yPos(height - 10), holeX(hX), holeWidth(hW)
+Line::Line(int y, int hX, int hW): xPos(0), yPos(y), holeX(hX), holeWidth(hW)
 {
 }
 
@@ -36,6 +36,16 @@ void Line::decrease(int num)
          glTranslatef(0.0f, yPos, 0.0f);
          glPopMatrix();
       }
+   }
+   else
+   {
+      yPos = height;
+      glPushMatrix();
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
+
+      glTranslatef(0.0f, yPos, 0.0f);
+      glPopMatrix();
    }
 }
 

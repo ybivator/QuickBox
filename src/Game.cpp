@@ -92,48 +92,29 @@ void Game::draw()
 
    static std::list<Line> lineList;
 
-   int distanceBetweenLines = 50;
-   int lineSpeed = 5;
+   int distanceBetweenLines = 73;
+//   int lineSpeed = 5;
 //   int lineHoleX = 20;
 //   int lineHoleWidth = 90;
 
-   static int count = 0;
-   static int count1 = 0;
+//   static int count = 0;
+//   static int count1 = 0;
 
-   static Line line1(20, 90);
-   static Line line2(80, 90);
-   static Line line3(50, 90);
-
-
-
-   if(count < distanceBetweenLines)
+   int numberOfLines = windowHeight / distanceBetweenLines;
+   if(lineList.empty())
    {
-      line1.decrease(lineSpeed);
-      line1.draw();
-      count++;
-   }
-   else
-   {
-      if(count1 < distanceBetweenLines)
+      for(int i = numberOfLines; i > 0; --i)
       {
-         line1.decrease(lineSpeed);
-         line1.draw();
-         line2.decrease(lineSpeed);
-         line2.draw();
-	 count1++;
-      }
-      else
-      {
-         line1.decrease(lineSpeed);
-         line1.draw();
-         line2.decrease(lineSpeed);
-         line2.draw();
-	 line3.decrease(lineSpeed);
-	 line3.draw();
+         lineList.push_back(Line(height + (distanceBetweenLines * i), 20, 90));
       }
    }
 
 
+   for(std::list<Line>::iterator it = lineList.begin(); it != lineList.end(); ++it)
+   {
+      (*it).decrease(3);
+      (*it).draw();
+   }
    box.draw();
    SDL_GL_SwapWindow(window);
 }

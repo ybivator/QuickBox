@@ -7,7 +7,7 @@ extern const int height;
 class Line
 {
 public:
-   Line(int hX, int hW);
+   Line(int y, int hX, int hW);
 
    void draw();
    void decrease(int num);
