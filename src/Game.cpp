@@ -92,12 +92,6 @@ void Game::draw()
 
    const float distanceBetweenLines = 50.0;
    const int step = 5;
-//   int lineSpeed = 5;
-//   int lineHoleX = 20;
-//   int lineHoleWidth = 90;
-
-//   static int count = 0;
-//   static int count1 = 0;
 
    static int count = 0;
    if(count >= distanceBetweenLines)
