@@ -1,6 +1,8 @@
 #ifndef _GAME_H
 #define _GAME_H
 #include <SDL2/SDL.h>
+#include <list>
+#include <Line.h>
 #include <Box.h>
 
 class Game
@@ -24,6 +26,7 @@ private:
    void operator=(const Game&);
 
    float round(float num);
+   int findMaxHeight(std::list<Line> &l);
 
    int windowWidth;
    int windowHeight;

@@ -6,8 +6,6 @@
 #include <Game.h>
 #include <iostream>
 #include <GL/gl.h>
-#include <Line.h>
-#include <list>
 
 using std::cout;
 using std::endl;
@@ -92,7 +90,8 @@ void Game::draw()
 
    static std::list<Line> lineList;
 
-   int distanceBetweenLines = 73;
+   const float distanceBetweenLines = 50.0;
+   const int step = 5;
 //   int lineSpeed = 5;
 //   int lineHoleX = 20;
 //   int lineHoleWidth = 90;
@@ -100,20 +99,26 @@ void Game::draw()
 //   static int count = 0;
 //   static int count1 = 0;
 
-   int numberOfLines = windowHeight / distanceBetweenLines;
-   if(lineList.empty())
+   static int count = 0;
+   if(count >= distanceBetweenLines)
    {
-      for(int i = numberOfLines; i > 0; --i)
-      {
-         lineList.push_back(Line(height + (distanceBetweenLines * i), 20, 90));
-      }
+      lineList.push_back(Line(windowHeight, 20, 90));
+      count = 0;
    }
-
+   else
+   {
+      count += step;
+   }
 
    for(std::list<Line>::iterator it = lineList.begin(); it != lineList.end(); ++it)
    {
-      (*it).decrease(3);
+      (*it).decrease(step);
       (*it).draw();
+      if((*it).getY() <= 0)
+      {
+         lineList.erase(it);
+	 break;
+      }
    }
    box.draw();
    SDL_GL_SwapWindow(window);
@@ -143,4 +148,18 @@ Box& Game::getBox()
 float Game::round(float num)
 {
    return floor(num + 0.5);
+}
+
+int Game::findMaxHeight(std::list<Line> &l)
+{
+   int max = 0;
+   std::list<Line>::iterator it;
+   for(it = l.begin(); it != l.end(); ++it)
+   {
+      if(max < (*it).getY())
+      {
+         max = (*it).getY();
+      }
+   }
+   return max;
 }
