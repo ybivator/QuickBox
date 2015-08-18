@@ -2,12 +2,24 @@
 #define _EVENTHANDLER_H_
 #include <SDL2/SDL.h>
 #include <Box.h>
+
+enum State
+{
+   PLAY,
+   PAUSE,
+   NEW_GAME,
+   GAME_OVER,
+   QUIT
+};
+
+extern State state;
+
 class EventHandler
 {
 public:
    EventHandler(SDL_GameController* gc);
    
-   bool update(Box& b);
+   void update(Box& b);
 
 
 private:

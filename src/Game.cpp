@@ -55,10 +55,7 @@ void Game::update()
 	 break;
       }
    }
-   if(!eventHandler.update(box))
-   {
-      state = EXIT;
-   }
+   eventHandler.update(box);
 #ifdef DEBUG
    fpsCounter.countFps();
 #endif   

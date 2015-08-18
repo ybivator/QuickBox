@@ -7,11 +7,6 @@
 #include <EventHandler.h>
 #include <FpsCounter.h>
 
-enum State
-{
-   RUNNING,
-   EXIT
-};
 
 extern const unsigned int width;
 extern const unsigned int height;

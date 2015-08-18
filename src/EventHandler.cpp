@@ -13,14 +13,14 @@ EventHandler::EventHandler(SDL_GameController* gc): gamePad(gc)
 {
 }
 
-bool EventHandler::update(Box& b)
+void EventHandler::update(Box& b)
 {
    SDL_Event event;
    SDL_PollEvent(&event);
    
    if(event.type == SDL_QUIT)
    {
-      return false;
+      state = QUIT;
    }
 
    const Uint8* keyCode = SDL_GetKeyboardState(NULL);
@@ -71,8 +71,7 @@ bool EventHandler::update(Box& b)
       }
       else if(SDL_GameControllerGetButton(gamePad, SDL_CONTROLLER_BUTTON_BACK))
       {
-         return false;
+         state = QUIT;
       }
    }
-   return true;
 }

@@ -18,7 +18,7 @@ using std::endl;
 const unsigned int width = 550;
 const unsigned int height = 700;
 
-State state = RUNNING;
+State state = PLAY;
 
 int main(int argc, char **argv)
 {
@@ -26,7 +26,7 @@ int main(int argc, char **argv)
    Init init;
    Game game(init.getWindow(), init.getGamepad());
 
-   while(state == RUNNING)
+   while(state != QUIT)
    {
       game.update();
       game.draw();
