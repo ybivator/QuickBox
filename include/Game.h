@@ -2,6 +2,8 @@
 #define _GAME_H
 #include <SDL2/SDL.h>
 #include <Box.h>
+#include <Line.h>
+#include <list>
 #include <EventHandler.h>
 #include <FpsCounter.h>
 
@@ -32,6 +34,7 @@ private:
    Game(const Game&);
    void operator=(const Game&);
 
+   std::list<Line> lineList;
    SDL_Window *window;
    SDL_GameController *gamepad;
    Box box;

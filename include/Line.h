@@ -1,8 +1,8 @@
 #ifndef _LINE_H_
 #define _LINE_H_
 
-extern const int width;
-extern const int height;
+extern const unsigned int width;
+extern const unsigned int height;
 
 class Line
 {

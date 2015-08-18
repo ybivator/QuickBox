@@ -5,6 +5,7 @@
 
 #include <Game.h>
 #include <iostream>
+#include <ctime>
 #include <GL/gl.h>
 
 using std::cout;
@@ -12,10 +13,11 @@ using std::endl;
 
 
 Game::Game(SDL_Window *win, SDL_GameController *gpad): window(win), gamepad(gpad),
-                                                       box(0, 0, 50, 50),
+                                                       box(0, 0, 35, 35),
                                                        fpsCounter(),
 						       eventHandler(gamepad)
 {
+   srand(time(NULL));
 }
 
 void Game::update()
@@ -26,6 +28,33 @@ void Game::update()
 
    glOrtho(0, width, 0, height, 1, -1);
 
+   static int count = 0;
+   const int distanceBetweenLines = 150;
+   const int lineSpeed = 2;
+
+   if(count >= distanceBetweenLines)
+   {
+      int holeX = rand() % (width - box.getBoxWidth() + 1);
+      int holeWidth = 90;
+      
+      lineList.push_back(Line(height, holeX, holeWidth));
+      count = 0;
+   }
+   else
+   {
+      count += lineSpeed;
+   }
+
+   std::list<Line>::iterator it;
+   for(it = lineList.begin(); it != lineList.end(); ++it)
+   {
+      (*it).decrease(lineSpeed);
+      if((*it).getY() <= 0)
+      {
+         lineList.erase(it);
+	 break;
+      }
+   }
    if(!eventHandler.update(box))
    {
       state = EXIT;
@@ -39,6 +68,11 @@ void Game::draw()
    glClearColor(1.0, 1.0, 1.0, 1.0);
    glClear(GL_COLOR_BUFFER_BIT);
 
+   std::list<Line>::iterator it;
+   for(it = lineList.begin(); it != lineList.end(); ++it)
+   {
+      (*it).draw();
+   }
    box.draw();
 #ifdef DEBUG
    fpsCounter.drawFps(height);
