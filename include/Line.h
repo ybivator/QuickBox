@@ -13,6 +13,8 @@ public:
    void decrease(int num);
 
    const int getY();
+   const int getHoleX();
+   const int getHoleWidth();
    void setY(int num);
 
 

@@ -48,12 +48,23 @@ void Game::update()
    std::list<Line>::iterator it;
    for(it = lineList.begin(); it != lineList.end(); ++it)
    {
+      if((*it).getY() <= (box.getBoxY() + box.getBoxHeight()))
+      {
+         if((*it).getHoleX() >= box.getBoxX() ||
+	    ((*it).getHoleX() + (*it).getHoleWidth()) <= (box.getBoxX() + box.getBoxWidth()))
+	 {
+	    state = GAME_OVER;
+	    break;
+	 }
+      }
+
       (*it).decrease(lineSpeed);
       if((*it).getY() <= 0)
       {
          lineList.erase(it);
 	 break;
       }
+
    }
    eventHandler.update(box);
 #ifdef DEBUG
@@ -75,6 +86,11 @@ void Game::draw()
    fpsCounter.drawFps(height);
 #endif
    SDL_GL_SwapWindow(window);
+}
+
+void Game::restart()
+{
+   lineList.clear();
 }
 
 Box& Game::getBox()

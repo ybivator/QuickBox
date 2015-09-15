@@ -16,14 +16,21 @@ EventHandler::EventHandler(SDL_GameController* gc): gamePad(gc)
 void EventHandler::update(Box& b)
 {
    SDL_Event event;
-   SDL_PollEvent(&event);
+   const Uint8* keyCode = SDL_GetKeyboardState(NULL);
    
-   if(event.type == SDL_QUIT)
+   while(SDL_PollEvent(&event) != 0)
    {
-      state = QUIT;
+      if(event.type == SDL_QUIT)
+      {
+         state = QUIT;
+      }
+
+      if(keyCode[SDL_SCANCODE_ESCAPE])
+      {
+	 state = PAUSE;
+      }
    }
 
-   const Uint8* keyCode = SDL_GetKeyboardState(NULL);
    if(!gamePad)
    {
       if(keyCode[SDL_SCANCODE_LSHIFT] && keyCode[SDL_SCANCODE_RIGHT])

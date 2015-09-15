@@ -54,6 +54,16 @@ const int Line::getY()
    return yPos;
 }
 
+const int Line::getHoleX()
+{
+   return holeX;
+}
+
+const int Line::getHoleWidth()
+{
+   return holeWidth;
+}
+
 void Line::setY(int num)
 {
    yPos = num;

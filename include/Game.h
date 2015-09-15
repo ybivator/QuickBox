@@ -22,6 +22,7 @@ public:
 
    void update();
    void draw();
+   void restart();
 
    Box& getBox();
 
