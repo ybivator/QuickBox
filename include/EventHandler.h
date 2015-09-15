@@ -9,6 +9,7 @@ enum State
    PAUSE,
    NEW_GAME,
    GAME_OVER,
+   RESTART,
    QUIT
 };
 
@@ -17,14 +18,14 @@ extern State state;
 class EventHandler
 {
 public:
-   EventHandler(SDL_GameController* gc);
+   EventHandler();
    
-   void update(Box& b);
+   void updateState(SDL_GameController *gamePad);
+   void updateKeyboard(Box &b);
+   void updateGamepad(SDL_GameController *gamePad, Box &b);
 
 
 private:
-   SDL_GameController* gamePad;
-
    static const int normStep = 5;
    static const int fastStep = 15;
 };
